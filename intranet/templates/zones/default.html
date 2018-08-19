@@ -1,0 +1,64 @@
+{% extends "common/default.html" %}
+{% block content %}
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-building"></i> My Zones</b></h5>
+  </header>
+  <div class="w3-container">
+      <div class="w3-display-container" style="height:60px;">
+          <button class="w3-btn w3-teal w3-round w3-xlarge w3-display-topright" id="show_add_zone_modal">Add</button>
+      </div>
+      <ul class="w3-ul w3-border">
+          <li><h2>Zones</h2></li>
+          {% if zones %}
+                 <li class="w3-row w3-blue-grey">
+                    <span class="w3-col m2"><h6>S.No</h6></span>
+                    <span class="w3-col m8"><h6>Name</h6></span>
+                    <span class="w3-col m2 w3-center"><h6>Actions</h6></span>
+                </li>
+              {% for zone in zones %}
+                <li class="w3-row">
+                    <span class="w3-col m2">{{zone.id}}</span>
+                    <span class="w3-col m8">{{ zone.name }}</span>
+                    <span class="w3-col m2 w3-center">
+                        <button class="w3-btn w3-red w3-round delete-zone action" data-id="{{zone.id}}"><i class="fa fa-trash"></i></button>
+                        <button class="w3-btn w3-red w3-round delete-zone confirm" data-id="{{zone.id}}"><i class="fa fa-check-square"></i></button>
+                        <button class="w3-btn w3-teal w3-round delete-zone abort" data-id="{{zone.id}}"><i class="fa fa-times-rectangle"></i></button>
+                    </span>
+                </li>
+              {% endfor %}
+          {% else %}
+              <li class="w3-red">No Data.</li>
+          {% endif %}
+      </ul>
+  </div>
+  
+</div>
+<div class="w3-modal" id="add_zone_modal">
+    <div class="w3-modal-content w3-card">
+        <div class="w3-center" style="height: 52px;">
+            <span class="w3-button w3-xlarge w3-hover-red w3-display-topright close-w3-modal">&times;</span>
+        </div>
+        <div class="w3-container w3-border-top w3-padding-16">
+            <div class="w3-section">
+                <label for="zone_name_input">Zone Name</label>
+                <input type="text" class="w3-input w3-border w3-margin-bottom" placeholder="Zone" id="zone_name_input" />
+            </div>
+        </div>
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+           <div class="w3-display-container" style="height: 36px">
+                <button class="w3-button w3-round w3-teal w3-display-bottomright" id="add_zone">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- End page content -->
+{% endblock %}
+{% block scripts %}
+<script src="/static/scripts/zone.js"></script>
+{% endblock %}

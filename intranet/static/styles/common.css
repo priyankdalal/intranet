@@ -1,0 +1,7 @@
+.confirm,.abort,.action[disabled]{
+    display: none;
+}
+.action[disabled] ~ .confirm,
+.action[disabled] ~ .abort{
+    display: inline-block;
+}
