@@ -1,0 +1,127 @@
+{% extends "common/default.html" %}
+{% block content %}
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-sliders"></i> Clients</b></h5>
+  </header>
+  <div class="w3-container">
+      <div class="w3-display-container" style="height:60px;">
+          <button class="w3-btn w3-teal w3-round w3-xlarge w3-display-topright" id="show_add_client_modal">Add</button>
+      </div>
+      <ul class="w3-ul w3-border">
+          <li><h2>Clients</h2></li>
+          {% if clients %}
+                 <li class="w3-row w3-blue-grey">
+                    <span class="w3-col m2"><h6>S.No</h6></span>
+                    <span class="w3-col m4"><h6>Name</h6></span>
+                    <span class="w3-col m2 w3-center"><h6>Actions</h6></span>
+                </li>
+              {% for client in clients %}
+                <li class="w3-row">
+                    <span class="w3-col m2">{{client.id}}</span>
+                    <span class="w3-col m4">{{ client.name }}</span>
+                    <span class="w3-col m2 w3-center">
+                        <button class="w3-btn w3-red w3-round delete-plans action" data-id="{{client.id}}"><i class="fa fa-trash"></i></button>
+                        <button class="w3-btn w3-red w3-round delete-plans confirm" data-id="{{client.id}}"><i class="fa fa-check-square"></i></button>
+                        <button class="w3-btn w3-teal w3-round delete-plans abort" data-id="{{client.id}}"><i class="fa fa-times-rectangle"></i></button>
+                    </span>
+                </li>
+              {% endfor %}
+          {% else %}
+              <li class="w3-red">No Data.</li>
+          {% endif %}
+      </ul>
+  </div>
+
+</div>
+<div class="w3-modal" id="add_client_modal">
+    <div class="w3-modal-content w3-card">
+        <div class="w3-center" style="height: 52px;">
+            <span class="w3-button w3-xlarge w3-hover-red w3-display-topright close-w3-modal">&times;</span>
+        </div>
+        <div class="w3-container w3-border-top w3-padding-16">
+            <div class="w3-section">
+                <label for="client_name_input" class="w3-text-red">Name</label>
+                <input type="text" class="w3-input w3-border w3-margin-bottom" placeholder="Name" id="client_name_input" />
+            </div>
+            <div class="w3-section">
+                <label for="client_address_input">Address</label>
+                <textarea class="w3-input w3-border w3-margin-bottom" placeholder="Address" id="client_address_input"></textarea>
+            </div>
+            <div class="w3-section">
+                <label for="client_phone_input">Phone</label>
+                <input type="tel" class="w3-input w3-border w3-margin-bottom" placeholder="Phone" id="client_phone_input" />
+            </div>
+            <div class="w3-section">
+                <label for="client_mobile_input" class="w3-text-red">Mobile</label>
+                <input type="tel" class="w3-input w3-border w3-margin-bottom" placeholder="Mobile" id="client_mobile_input" />
+            </div>
+            <div class="w3-section">
+                <label for="client_plan_input w3-red">Client Plan</label>
+                <select name="" id="client_plan_input" class="w3-input w3-border w3-margin-bottom">
+                    {% if plans %}
+                        {% for plan in plans %}
+                            <option value="{{plan.id}}">{{plan.name}}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="">No Plan</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="w3-section">
+                <label for="client_zone_input">Client Zone</label>
+                <select name="" id="client_zone_input" class="w3-input w3-border w3-margin-bottom">
+                    {% if zones %}
+                        {% for zone in zones %}
+                            <option value="{{zone.id}}">{{zone.name}}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="">No Zone</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="w3-section">
+                <label for="client_mobile_input" class="w3-text-red">Type</label>
+                <div class="w3-input w3-border w3-margin-bottom">
+                    <input type="radio" class="w3-radio" name="type" value="personal"><label for="">Personal</label>
+                    <input type="radio" class="w3-radio" name="type" value="company"><label for="">Company</label>
+                </div>
+            </div>
+            <div class="w3-section">
+                <label for="client_pan_input">PAN</label>
+                <input type="text" class="w3-input w3-border w3-margin-bottom" placeholder="PAN" id="client_pan_input" />
+            </div>
+            <div class="w3-section">
+                <label for="client_email_input">Email</label>
+                <input type="email" class="w3-input w3-border w3-margin-bottom" placeholder="Email" id="client_email_input" />
+            </div>
+            <div class="w3-section">
+                <label for="client_sms_input">Send SMS</label>
+                <div class="w3-input w3-border w3-margin-bottom">
+                    <input type="radio" class="w3-radio" name="sms" value="true"><label for="">Yes</label>
+                    <input type="radio" class="w3-radio" name="sms" value="false"><label for="">No</label>
+                </div>
+            </div>
+            <div class="w3-section">
+                <label for="client_comments_input w3-red">Comments</label>
+                <textarea class="w3-input w3-border w3-margin-bottom" placeholder="Comments" id="client_comments_input"></textarea>
+            </div>
+        </div>
+        <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+           <div class="w3-display-container" style="height: 36px">
+                <button class="w3-button w3-round w3-teal w3-display-bottomright" id="add_plans">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- End page content -->
+
+{% endblock %}
+{% block scripts%}
+<script src="/static/scripts/clients.js"></script>
+{% endblock %}

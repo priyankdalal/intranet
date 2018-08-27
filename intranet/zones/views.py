@@ -10,7 +10,7 @@ def index(request):
             "title":"Intranet - Zones",
             "zones":all_zones,
     }
-    return render(request,'zones/default.html',context)
+    return render(request,'zones/index.html',context)
 def addZone(request):
     if request.is_ajax():
         if 'name' in request.POST:
