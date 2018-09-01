@@ -1,2 +1,2 @@
 *.pyc
-intranet/intranet/settings.py
+/intranet/intranet/settings.py

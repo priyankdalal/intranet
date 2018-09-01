@@ -81,8 +81,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'intranet',
-        'USER':'root',
-        'PASSWORD':'',
+        'USER':'your_username',
+        'PASSWORD':'your_password',
         'HOST':'127.0.0.1',
         'PORT':'3306'
     }
