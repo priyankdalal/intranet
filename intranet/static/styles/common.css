@@ -5,3 +5,7 @@
 .action[disabled] ~ .abort{
     display: inline-block;
 }
+/*components**********************/
+.toUppercase{
+    text-transform: uppercase;
+}

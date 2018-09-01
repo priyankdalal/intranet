@@ -5,35 +5,55 @@
 
   <!-- Header -->
   <header class="w3-container" style="padding-top:22px">
-    <h5><b><i class="fa fa-sliders"></i> Clients</b></h5>
+    <h5><b><i class="fa fa-users"></i> Clients</b></h5>
   </header>
   <div class="w3-container">
       <div class="w3-display-container" style="height:60px;">
           <button class="w3-btn w3-teal w3-round w3-xlarge w3-display-topright" id="show_add_client_modal">Add</button>
       </div>
-      <ul class="w3-ul w3-border">
-          <li><h2>Clients</h2></li>
-          {% if clients %}
-                 <li class="w3-row w3-blue-grey">
-                    <span class="w3-col m2"><h6>S.No</h6></span>
-                    <span class="w3-col m4"><h6>Name</h6></span>
-                    <span class="w3-col m2 w3-center"><h6>Actions</h6></span>
-                </li>
-              {% for client in clients %}
-                <li class="w3-row">
-                    <span class="w3-col m2">{{client.id}}</span>
-                    <span class="w3-col m4">{{ client.name }}</span>
-                    <span class="w3-col m2 w3-center">
-                        <button class="w3-btn w3-red w3-round delete-plans action" data-id="{{client.id}}"><i class="fa fa-trash"></i></button>
-                        <button class="w3-btn w3-red w3-round delete-plans confirm" data-id="{{client.id}}"><i class="fa fa-check-square"></i></button>
-                        <button class="w3-btn w3-teal w3-round delete-plans abort" data-id="{{client.id}}"><i class="fa fa-times-rectangle"></i></button>
-                    </span>
-                </li>
-              {% endfor %}
-          {% else %}
-              <li class="w3-red">No Data.</li>
-          {% endif %}
-      </ul>
+        <div class="w3-responsive">
+          <table class="w3-table w3-striped w3-bordered">
+              <legend><h2>Clients</h2></legend>
+              {% if clients %}
+                     <tr class="w3-blue-grey">
+                        <th><h6>S.No</h6></th>
+                        <th><h6>Name</h6></th>
+                        <th><h6>Address</h6></th>
+                        <th><h6>Phone</h6></th>
+                        <th><h6>Mobile</h6></th>
+                        <th><h6>Zone</h6></th>
+                        <th><h6>Plan</h6></th>
+                        <th><h6>Type</h6></th>
+                        <th><h6>PAN</h6></th>
+                        <th><h6>Email</h6></th>
+                        <th><h6>Send SMS</h6></th>
+                        <th class="w3-col m1 w3-center"><h6>Actions</h6></th>
+                    </tr>
+                  {% for client in clients %}
+                    <tr>
+                        <td>{{client.id}}</td>
+                        <td>{{ client.name }}</td>
+                        <td>{{ client.address }}</td>
+                        <td>{{ client.phone }}</td>
+                        <td>{{ client.mobile }}</td>
+                        <td>{{ client.zone.name }}</td>
+                        <td>{{ client.plan.name }}</td>
+                        <td>{{ client.type }}</td>
+                        <td>{{ client.pan }}</td>
+                        <td>{{ client.email }}</td>
+                        <td>{{ client.send_sms }}</td>
+                        <td class="w3-center">
+                            <button class="w3-btn w3-red w3-round delete-client action" data-id="{{client.id}}"><i class="fa fa-trash"></i></button>
+                            <button class="w3-btn w3-red w3-round delete-client confirm" data-id="{{client.id}}"><i class="fa fa-check-square"></i></button>
+                            <button class="w3-btn w3-teal w3-round delete-client abort" data-id="{{client.id}}"><i class="fa fa-times-rectangle"></i></button>
+                        </td>
+                    </tr>
+                  {% endfor %}
+              {% else %}
+                  <tr class="w3-red"><span>No Data.</span></tr>
+              {% endif %}
+          </table>
+      </div>
   </div>
 
 </div>
@@ -86,13 +106,13 @@
             <div class="w3-section">
                 <label for="client_mobile_input" class="w3-text-red">Type</label>
                 <div class="w3-input w3-border w3-margin-bottom">
-                    <input type="radio" class="w3-radio" name="type" value="personal"><label for="">Personal</label>
+                    <input type="radio" class="w3-radio" name="type" value="personal" checked><label for="">Personal</label>
                     <input type="radio" class="w3-radio" name="type" value="company"><label for="">Company</label>
                 </div>
             </div>
             <div class="w3-section">
                 <label for="client_pan_input">PAN</label>
-                <input type="text" class="w3-input w3-border w3-margin-bottom" placeholder="PAN" id="client_pan_input" />
+                <input type="text" class="w3-input w3-border w3-margin-bottom toUppercase" placeholder="PAN" id="client_pan_input" />
             </div>
             <div class="w3-section">
                 <label for="client_email_input">Email</label>
@@ -101,18 +121,18 @@
             <div class="w3-section">
                 <label for="client_sms_input">Send SMS</label>
                 <div class="w3-input w3-border w3-margin-bottom">
-                    <input type="radio" class="w3-radio" name="sms" value="true"><label for="">Yes</label>
-                    <input type="radio" class="w3-radio" name="sms" value="false"><label for="">No</label>
+                    <input type="radio" class="w3-radio" name="sms" value="yes" checked id="send_sms_y"><label for="send_sms_y">Yes</label>
+                    <input type="radio" class="w3-radio" name="sms" value="no" id="send_sms_n"><label for="send_sms_n">No</label>
                 </div>
             </div>
             <div class="w3-section">
-                <label for="client_comments_input w3-red">Comments</label>
+                <label for="client_comments_input">Comments</label>
                 <textarea class="w3-input w3-border w3-margin-bottom" placeholder="Comments" id="client_comments_input"></textarea>
             </div>
         </div>
         <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
            <div class="w3-display-container" style="height: 36px">
-                <button class="w3-button w3-round w3-teal w3-display-bottomright" id="add_plans">Add</button>
+                <button class="w3-button w3-round w3-teal w3-display-bottomright" id="add_client">Add</button>
             </div>
         </div>
     </div>

@@ -10,13 +10,12 @@ class Clients(models.Model):
     mobile = models.CharField(max_length=10)
     password_string = models.CharField(max_length=50)
     password = models.CharField(max_length=50)
-    zone = models.IntegerField(blank=True, null=True)
-    plan = models.IntegerField(blank=True, null=True)
-    region = models.IntegerField(blank=True, null=True)
+    zone = models.ForeignKey(Zones, models.PROTECT,db_column='zone')
+    plan = models.ForeignKey(Plans, models.PROTECT,db_column='plan')
     type = models.CharField(max_length=8, blank=True, null=True)
     pan = models.CharField(max_length=10, blank=True, null=True)
     email = models.CharField(max_length=50, blank=True, null=True)
-    send_sms = models.IntegerField(blank=True, null=True)
+    send_sms = models.CharField(max_length=3, blank=True, null=True)
     comments = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -26,3 +25,5 @@ class Clients(models.Model):
         return Plans.objects.all()
     def get_zones():
         return Zones.objects.all()
+    def get_clients():
+        clients=Clients.objects.all().select_related()

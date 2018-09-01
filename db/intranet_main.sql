@@ -22,12 +22,16 @@ create table clients(
 	mobile varchar(10) not null,
 	password_string varchar(50) not null,
 	password varchar(50) not null,
-	zone int references zones(id),
-    plan int references plans(id),
+	zone int not null,
+    plan int not null,
 	region tinyint,
 	type enum('personal','company') default 'personal',
 	pan varchar(10),
 	email varchar(50),
-	send_sms boolean default true,
-	comments text
+	send_sms enum('yes','no') default 'yes',
+	comments text,
+    foreign key(zone) references zones(id),
+    foreign key(plan) references plans(id)
 ) engine=innoDb;
+
+alter table clients change send_sms send_sms enum('yes','no') default 'yes';
